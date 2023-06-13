@@ -5,12 +5,13 @@ labels:
 imagePullPolicy: "Always"
 containerPorts:
   - 80
+envName: "default"
 
 service:
-  name: "laravel-app"
+  name: "laravel-app-service"
   labels:
     app: "laravel-app"
-  portName: "laravel-app-port"
+  portName: "laravel-app-service-port"
   portNumber: 80
   protocol: "TCP"
   targetPortNumber: 80
