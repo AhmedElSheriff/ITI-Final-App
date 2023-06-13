@@ -28,11 +28,9 @@ pipeline {
                             then
                                 helm install app deployment/app \
                                 --set BUILD_NUMBER=${BUILD_NUMBER}
-                                --kubeconfig=${KUBECONFIG}
                             else
                                 helm upgrade app deployment/app \
                                 --set BUILD_NUMBER=${BUILD_NUMBER}
-                                --kubeconfig=${KUBECONFIG}
                             fi
                         '''
                     }
