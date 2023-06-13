@@ -26,7 +26,7 @@ pipeline {
                             mv deployment/deployment.yml deployment/deployment.yml.tmp
                             cat deployment/deployment.yml.tmp | envsubst > deployment/deployment.yml
                             rm -f deployment/deployment.yml.tmp
-                            kubectl apply -f deployment -n default --kubeconfig=${KUBECONFIG}
+                            kubectl apply -f deployment -n app --kubeconfig=${KUBECONFIG}
                         '''
                     }
                 }
