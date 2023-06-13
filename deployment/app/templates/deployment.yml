@@ -3,21 +3,28 @@ kind: Deployment
 metadata:
   namespace: default
   labels:
-    app: "laravel-app"
-  name: "laravel-app"
+    {{- range $key, $val := .Values.labels }}
+    {{ $key }}: {{ $val }}
+    {{- end }}
+  name: {{ .Values.name }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-        app: "laravel-app"
+        {{- range $key, $val := .Values.labels }}
+        {{ $key }}: {{ $val }}
+        {{- end }}
   template:
     metadata:
       labels:
-        app: "laravel-app"
+        app: {{ .Values.name }}
     spec:
       containers:
-      - image: ahmedlsheriff/laravel-app:v${BUILD_NUMBER}
-        name: "laravel-app"
-        imagePullPolicy: "Always"
+      - image: {{ .Values.repoName }}/{{ .Values.imageName }}:v{{ .Values.BUILD_NUMBER }}
+        name: {{ .Values.name }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
         ports:
-        - containerPort: 80
+        {{- range .Values.containerPorts }}
+        - containerPort: {{ . }}
+        {{- end }}
+        resources: {}

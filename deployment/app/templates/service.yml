@@ -6,7 +6,12 @@ metadata:
     {{- range $key, $val := .Values.service.labels }}
     {{ $key }}: {{ $val }}
     {{- end }}
+    app.kubernetes.io/name: {{ .Values.name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
   name: {{ .Values.service.name }}
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: nlb
+    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: true
 spec:
   ports:
   - name: {{ .Values.service.portName }}
