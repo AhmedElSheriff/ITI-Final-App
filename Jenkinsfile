@@ -23,15 +23,10 @@ pipeline {
                     withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
                         sh '''
                             export BUILD_NUMBER=$(cat ../build.txt)
-                            export release=$(helm list --short | grep ^app)     
-                            if [ -z $release ]
-                            then
-                                helm install app deployment/app \
-                                --set BUILD_NUMBER=${BUILD_NUMBER}
-                            else
-                                helm upgrade app deployment/app \
-                                --set BUILD_NUMBER=${BUILD_NUMBER}
-                            fi
+                            mv deployment/deployment.yml deployment/deployment.yml.tmp
+                            cat deployment/deployment.yml.tmp | envsubst > deployment/deployment.yml
+                            rm -f deployment/deployment.yml.tmp
+                            kubectl apply -f deployment -n default --kubeconfig=${KUBECONFIG}
                         '''
                     }
                 }

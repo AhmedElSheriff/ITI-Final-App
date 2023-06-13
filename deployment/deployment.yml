@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: default
+  namespace: jenkins
   labels:
     app: "laravel-app-service"
   name: "laravel-app-service"
