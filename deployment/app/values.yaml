@@ -1,0 +1,21 @@
+replicaCount: 1
+name: "laravel-app"
+labels:
+  app: "laravel-app"
+imagePullPolicy: "Always"
+containerPorts:
+  - 80
+
+service:
+  name: "laravel-app"
+  labels:
+    app: "laravel-app"
+  portName: "laravel-app-port"
+  portNumber: 80
+  protocol: "TCP"
+  targetPortNumber: 80
+  serviceType: LoadBalancer
+
+BUILD_NUMBER: 1
+repoName: "ahmedlsheriff"
+imageName: "laravel-app"

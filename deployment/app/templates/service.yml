@@ -1,0 +1,23 @@
+
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{ .Values.envName }}
+  labels:
+    {{- range $key, $val := .Values.service.labels }}
+    {{ $key }}: {{ $.Values.envName }}-{{ $val }}
+    {{- end }}
+  name: {{ .Values.envName }}-{{ .Values.service.name }}
+spec:
+  ports:
+  - name: {{ .Values.service.portName }}
+    port: {{ .Values.service.portNumber }}
+    protocol: {{ .Values.service.protocol }}
+    targetPort: {{ .Values.service.targetPortNumber }}
+  selector:
+    {{- range $key, $val := .Values.labels }}
+    {{ $key }}: {{ $.Values.envName }}-{{ $val }}
+    {{- end }}
+  type: {{ .Values.service.serviceType }}
+status:
+  loadBalancer: {}
