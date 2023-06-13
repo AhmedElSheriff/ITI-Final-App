@@ -8,7 +8,7 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'dockerhub-acc', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                         sh '''
                             docker login -u ${USERNAME} -p ${PASSWORD}
-                            docker build -t ahmedlsheriff/laravel-app:v${BUILD_NUMBER} .
+                            docker build --network=host -t ahmedlsheriff/laravel-app:v${BUILD_NUMBER} . --
                             docker push ahmedlsheriff/laravel-app:v${BUILD_NUMBER}
                             echo ${BUILD_NUMBER} > ../build.txt
                         '''
