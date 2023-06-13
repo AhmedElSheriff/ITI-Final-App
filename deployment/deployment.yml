@@ -15,7 +15,7 @@ spec:
         app: "laravel-app"
     spec:
       containers:
-      - image: ahmedlsheriff/laravel-app:v${BUILD_NUMBER}
+      - image: 712199425/cyborg-gaming-app:v2
         name: "laravel-app"
         imagePullPolicy: "Always"
         ports:
