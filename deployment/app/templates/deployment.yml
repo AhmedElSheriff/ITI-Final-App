@@ -1,27 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: {{ .Values.envName }}
+  namespace: default
   labels:
     {{- range $key, $val := .Values.labels }}
-    {{ $key }}: {{ $.Values.envName }}-{{ $val }}
+    {{ $key }}: {{ $val }}
     {{- end }}
-  name: {{ .Values.envName }}-{{ .Values.name }}
+  name: {{ .Values.name }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
         {{- range $key, $val := .Values.labels }}
-        {{ $key }}: {{ $.Values.envName }}-{{ $val }}
+        {{ $key }}: {{ $val }}
         {{- end }}
   template:
     metadata:
       labels:
-        app: {{ .Values.envName }}-{{ .Values.name }}
+        app: {{ .Values.name }}
     spec:
       containers:
       - image: {{ .Values.repoName }}/{{ .Values.imageName }}:v{{ .Values.BUILD_NUMBER }}
-        name: {{ .Values.envName }}-{{ .Values.name }}
+        name: {{ .Values.name }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         ports:
         {{- range .Values.containerPorts }}

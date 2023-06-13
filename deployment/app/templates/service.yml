@@ -2,12 +2,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: {{ .Values.envName }}
+  namespace: default
   labels:
     {{- range $key, $val := .Values.service.labels }}
-    {{ $key }}: {{ $.Values.envName }}-{{ $val }}
+    {{ $key }}: {{ $val }}
     {{- end }}
-  name: {{ .Values.envName }}-{{ .Values.service.name }}
+  name: {{ .Values.service.name }}
 spec:
   ports:
   - name: {{ .Values.service.portName }}
@@ -16,7 +16,7 @@ spec:
     targetPort: {{ .Values.service.targetPortNumber }}
   selector:
     {{- range $key, $val := .Values.labels }}
-    {{ $key }}: {{ $.Values.envName }}-{{ $val }}
+    {{ $key }}: {{ $val }}
     {{- end }}
   type: {{ .Values.service.serviceType }}
 status:

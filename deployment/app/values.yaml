@@ -5,7 +5,6 @@ labels:
 imagePullPolicy: "Always"
 containerPorts:
   - 80
-envName: "jenkins"
 
 service:
   name: "laravel-app"
