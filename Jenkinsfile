@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent agent_1
     stages {
         stage('build') {
             steps {
@@ -23,10 +23,15 @@ pipeline {
                     withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
                         sh '''
                             export BUILD_NUMBER=$(cat ../build.txt)
-                            mv deployment/deployment.yaml deployment/deployment.yaml.tmp
-                            cat deployment/deployment.yaml.tmp | envsubst > deployment/deployment.yaml
-                            rm -f deployment/deployment.yaml.tmp
-                            kubectl apply -f deployment
+                            export release=$(helm list --short | grep ^laravel-app)     
+                            if [ -z $release ]
+                            then
+                                helm install app deployment/app \
+                                --set BUILD_NUMBER=${BUILD_NUMBER}
+                            else
+                                helm upgrade laravel-app deployment/app \
+                                --set BUILD_NUMBER=${BUILD_NUMBER}
+                            fi
                         '''
                     }
                 }
