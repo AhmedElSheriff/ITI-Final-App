@@ -23,7 +23,7 @@ pipeline {
                     withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
                         sh '''
                             export BUILD_NUMBER=$(cat ../build.txt)
-                            export release=$(helm list --short | grep ^laravel-app)     
+                            export release=$(helm list --short | grep ^app)     
                             if [ -z $release ]
                             then
                                 helm install app deployment/app \
