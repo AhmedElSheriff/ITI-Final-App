@@ -29,7 +29,7 @@ pipeline {
                                 helm install app deployment/app \
                                 --set BUILD_NUMBER=${BUILD_NUMBER}
                             else
-                                helm upgrade laravel-app deployment/app \
+                                helm upgrade app deployment/app \
                                 --set BUILD_NUMBER=${BUILD_NUMBER}
                             fi
                         '''
