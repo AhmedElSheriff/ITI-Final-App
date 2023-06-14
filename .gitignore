@@ -4,9 +4,7 @@
 /storage/*.key
 /vendor
 envFile
-.env
-.env.backup
-.env.example
+.env*
 .phpunit.result.cache
 docker-compose.override.yml
 Homestead.json
@@ -15,4 +13,3 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
-.*
