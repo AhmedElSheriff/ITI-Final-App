@@ -1,15 +1,22 @@
+# Build Composer
 FROM composer:2.4.3 as builder1
 WORKDIR /app
 
 COPY composer.json composer.lock ./
 RUN composer install --no-scripts --no-autoloader
+COPY . .
+RUN composer dump-autoload --optimize
+RUN php artisan optimize
 
+# Build NPM
 FROM node:14.21.3-bullseye as builder2
 WORKDIR /app
+
 COPY --from=builder1 /app .
 COPY . .
 RUN npm install && npm run dev
 
+# Apache Web Server
 FROM php:8.1-apache
 WORKDIR /var/www/html
 
