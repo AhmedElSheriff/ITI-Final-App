@@ -6,14 +6,13 @@ COPY composer.json composer.lock ./
 RUN composer install --no-scripts --no-autoloader
 COPY . .
 RUN composer dump-autoload --optimize
-RUN php artisan optimize
+RUN php artisan optimize && php artisan route:clear && php artisan config:clear && php artisan cache:clear
 
 # Build NPM
 FROM node:14.21.3-bullseye as builder2
 WORKDIR /app
 
 COPY --from=builder1 /app .
-COPY . .
 RUN npm install && npm run dev
 
 # Apache Web Server
