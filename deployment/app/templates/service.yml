@@ -6,8 +6,6 @@ metadata:
     {{- range $key, $val := .Values.service.labels }}
     {{ $key }}: {{ $val }}
     {{- end }}
-    app.kubernetes.io/name: {{ .Values.name }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
   name: {{ .Values.service.name }}
 spec:
   ports:
