@@ -24,6 +24,11 @@ pipeline {
                         sh '''
                             export BUILD_NUMBER=$(cat ../build.txt)
                             export release=$(helm list --short | grep ^app)     
+
+                            mv .env .env.tmp
+                            cat .env.tmp | envsubst > .env
+                            rm -f .env.tmp
+
                             if [ -z $release ]
                             then
                                 helm install app deployment/app \
