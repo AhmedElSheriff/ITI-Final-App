@@ -20,13 +20,15 @@ pipeline {
             steps {
                 echo 'deploy'
                 script {
-                    withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+                    withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG'),
+                            file(credentialsId: 'envFile', variable: 'ENVFILE')
+                        ]) {
                         sh '''
                             export BUILD_NUMBER=$(cat ../build.txt)
                             export release=$(helm list --short | grep ^app)     
 
                             cat > .env <<-EOF
-                            ${envFile}
+                            ${ENVFILE}
                             EOF
 
                             if [ -z $release ]
