@@ -5,6 +5,7 @@
 /vendor
 envFile
 .env*
+kubeconfig
 .phpunit.result.cache
 docker-compose.override.yml
 Homestead.json

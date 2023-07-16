@@ -21,7 +21,7 @@ pipeline {
                 echo 'deploy'
                 script {
                     withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG'),
-                            file(credentialsId: 'envFile', variable: 'ENVFILE')
+                            file(credentialsId: 'justfile', variable: 'ENVFILE')
                         ]) {
                         sh '''
                             export BUILD_NUMBER=$(cat ../build.txt)

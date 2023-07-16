@@ -39,7 +39,6 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
-                        {{--
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
@@ -71,7 +70,6 @@
                                 </div>
                             </li>
                         @endguest
-                        --}}
                     </ul>
                 </div>
             </div>

@@ -1,3 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vars
+data:
+  APP_DEBUG: "true"
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -28,3 +35,6 @@ spec:
         - containerPort: {{ . }}
         {{- end }}
         resources: {}
+        envFrom:
+        - configMapRef:
+            name: vars

@@ -1,0 +1,11 @@
+APP_NAME=Laravel
+APP_ENV=local
+APP_KEY=base64:ReXAe4ruvXg892bDsWs7NPdZ09I5RFIUw9SdhzQvOrY=
+APP_DEBUG=true
+APP_URL=http://localhostt
+DB_CONNECTION=mysql
+DB_HOST=${DB_URL}
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=root
+DB_PASSWORD=rootpassword123
