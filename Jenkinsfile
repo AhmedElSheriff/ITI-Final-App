@@ -27,7 +27,7 @@ pipeline {
                             export BUILD_NUMBER=$(cat ../build.txt)
                             export release=$(helm list --short | grep ^app)     
 
-                            cat > .env <<-EOF
+                            cat <<-EOF > .env
                             ${ENVFILE}
                             EOF
 
