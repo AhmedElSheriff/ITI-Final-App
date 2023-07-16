@@ -5,7 +5,8 @@ pipeline {
             steps {
                 echo 'build'
                 script{
-                    withCredentials([usernamePassword(credentialsId: 'dockerhub-acc', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub-acc', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD'),
+                    file(credentialsId: 'justfile', variable: 'ENVFILE')]) {
                         sh '''
                             cat ${ENVFILE} > .env2
                             envsubst < .env2 > .env
