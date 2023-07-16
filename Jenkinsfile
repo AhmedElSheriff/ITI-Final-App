@@ -7,6 +7,12 @@ pipeline {
                 script{
                     withCredentials([usernamePassword(credentialsId: 'dockerhub-acc', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                         sh '''
+                            cat ${ENVFILE} > .env2
+                            envsubst < .env2 > .env
+                            rm .env2
+
+                            cat .env
+                            
                             docker login -u ${USERNAME} -p ${PASSWORD}
                             docker build --network=host -t ahmedlsheriff/laravel-app:v${BUILD_NUMBER} . --
                             docker push ahmedlsheriff/laravel-app:v${BUILD_NUMBER}
@@ -26,10 +32,6 @@ pipeline {
                         sh '''
                             export BUILD_NUMBER=$(cat ../build.txt)
                             export release=$(helm list --short | grep ^app)     
-
-                            cat <<-EOF > .env
-                            ${ENVFILE}
-                            EOF
 
                             if [ -z $release ]
                             then
