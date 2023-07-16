@@ -26,6 +26,7 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
+
 RUN a2enmod rewrite
 
 COPY --from=builder2 /app /var/www/html
