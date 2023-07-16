@@ -6,7 +6,7 @@ COPY composer.json composer.lock ./
 RUN composer install --no-scripts --no-autoloader
 COPY . .
 RUN composer dump-autoload --optimize
-RUN php artisan optimize && php artisan route:clear && php artisan config:clear && php artisan cache:clear && php artisan key:generate
+RUN php artisan optimize && php artisan route:clear && php artisan config:clear && php artisan cache:clear && php artisan key:generate && php artisan migrate
 
 # Build NPM
 FROM node:14.21.3-bullseye as builder2
