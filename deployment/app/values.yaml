@@ -15,7 +15,7 @@ service:
   portNumber: 80
   protocol: "TCP"
   targetPortNumber: 80
-  serviceType: NodePort
+  serviceType: LoadBalancer
 
 BUILD_NUMBER: 1
 repoName: "ahmedlsheriff"
